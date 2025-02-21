@@ -289,12 +289,6 @@ fun PostScreen(viewModel: PostViewModel = viewModel()) {
                                     }
                                 }
                             }
-                            /*val trip = KPlanedTripBean(
-                                title = "Sample Trip",
-                                date = "2023-10-01",
-                                duration = "3 days"
-                            )
-                            TripItem(trip = trip)*/
                         }
 
                         items(posts) { post ->
@@ -307,11 +301,61 @@ fun PostScreen(viewModel: PostViewModel = viewModel()) {
     }
 }
 
+
+
+@Composable
+fun CityItem(
+    cityName: String = "Niphad",
+    cityDescription: String = "Near about Godavari"
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(6.dp)
+            .background(MaterialTheme.colors.surface, RoundedCornerShape(8.dp))
+            .padding(10.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(
+            painter = painterResource(id = R.drawable.baseline_location_on_24),
+            contentDescription = "Location Icon",
+            tint = Color.Gray,
+            modifier = Modifier
+                .size(22.dp)
+                .padding(end = 6.dp)
+        )
+
+        Column(
+            modifier = Modifier.weight(1f)
+        ) {
+            Text(
+                text = cityName,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.Black
+            )
+            Text(
+                text = cityDescription,
+                fontSize = 14.sp,
+                color = Color.Gray
+            )
+        }
+
+        Icon(
+            painter = painterResource(id = R.drawable.baseline_location_on_24),
+            contentDescription = "Country Icon",
+            tint = Color.Gray,
+            modifier = Modifier
+                .size(30.dp)
+                .padding(4.dp)
+        )
+    }
+}
+
+
 @Composable
 fun PostItem(post: Post) {
     val mContext = LocalContext.current
-
-
     androidx.compose.material3.Card(
         modifier = Modifier
             .fillMaxWidth()

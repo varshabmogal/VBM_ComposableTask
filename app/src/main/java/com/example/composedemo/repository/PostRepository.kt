@@ -1,5 +1,6 @@
 package com.senses.composabletask.repository
 
+import com.example.composedemo.model.City
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
@@ -21,6 +22,12 @@ class PostRepository(private val apiService: ApiService) {
     suspend fun getPosts(): List<Post> {
         return withContext(Dispatchers.IO) {
             apiService.getPosts()
+        }
+    }
+
+    suspend fun getCity(): List<City> {
+        return withContext(Dispatchers.IO) {
+            apiService.getCity()
         }
     }
 }
