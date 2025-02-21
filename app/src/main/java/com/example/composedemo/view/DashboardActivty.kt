@@ -549,19 +549,24 @@ fun CustomDialog(onDismiss: () -> Unit) {
 
 
 @Composable
-fun FeedbackDialogs(onDismiss: () -> Unit) {
+fun CreateTripDialogs(onDismiss: () -> Unit) {
     val context = LocalContext.current
     var name by remember { mutableStateOf("") }
     var mobileNumber by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
-
+    var mSelectedText by remember { mutableStateOf("") }
+    var showError by remember { mutableStateOf(false) }
     AlertDialog(
         onDismissRequest = onDismiss,
         confirmButton = {
             Button(
                 onClick = {
-                    Toast.makeText(context, "Trip created", Toast.LENGTH_SHORT).show()
-                    onDismiss()
+                    if (name.isBlank() || mSelectedText.isBlank() || description.isBlank()) {
+                        showError = true
+                    } else {
+                        Toast.makeText(context, "Trip created", Toast.LENGTH_SHORT).show()
+                        onDismiss()
+                    }
                 },
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(
@@ -593,6 +598,7 @@ fun FeedbackDialogs(onDismiss: () -> Unit) {
                     imageVector = Icons.Default.Close,
                     contentDescription = "Close",
                     modifier = Modifier.size(24.dp)
+                        .clickable { onDismiss() }
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
@@ -627,7 +633,6 @@ fun FeedbackDialogs(onDismiss: () -> Unit) {
                 // Create a list of cities
                 val mCities = listOf("Solo", "Couple", "Family","Group")
                 // Create a string value to store the selected city
-                var mSelectedText by remember { mutableStateOf("") }
                 var mTextFieldSize by remember { mutableStateOf(Size.Zero)}
                 // Up Icon when expanded and down icon when collapsed
                 val icon = if (mExpanded)
@@ -681,6 +686,9 @@ fun FeedbackDialogs(onDismiss: () -> Unit) {
                     placeholder = { Text("Enter description") },
                     modifier = Modifier.fillMaxWidth()
                 )
+                if (showError) {
+                    Text("All fields are required!", color = Color.Red)
+                }
             }
         }
     )

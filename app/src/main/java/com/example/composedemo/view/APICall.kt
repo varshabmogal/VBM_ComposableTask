@@ -207,8 +207,9 @@ fun PostScreen(viewModel: PostViewModel = viewModel()) {
                                             )
                                         }
                                         if (showDialog) {
-                                            FeedbackDialogs(onDismiss = { showDialog = false })
-                                            // FeedbackDialog()
+                                            CreateTripDialogs(onDismiss = { showDialog = false
+                                            })
+
                                         }
 
                                     }
